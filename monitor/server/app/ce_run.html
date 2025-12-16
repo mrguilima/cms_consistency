@@ -260,6 +260,12 @@
               <td>{{old_nmissing|none_as_blank}}</td>
               </tr>
               <tr>
+                  <td class="field_name">Lost files</td><td>{{nlost}}</td>
+                  <td>{% if lost %}<a href="#lost_list_ref" id="lost_list_toggle" onclick="show('lost')">show</a>{% endif %}</td>
+                  <td>{% if lost %}<a href="./lost/lost_list_{{rse}}_{{run}}.txt?rse={{rse}}&run={{run}}">download</a>{% endif %}</td>
+              <td>{{old_nlost|none_as_blank}}</td>
+              </tr>
+              <tr>
                   <td class="field_name">Dark files</td><td>{{ndark}}</td>
                   <td>{% if dark %}<a href="#dark_list_ref" id="dark_list_toggle" onclick="show('dark')">show</a>{% endif %}</td>
                   <td>{% if dark %}<a href="./dark/dark_list_{{rse}}_{{run}}.txt?rse={{rse}}&run={{run}}">download</a>{% endif %}</td>

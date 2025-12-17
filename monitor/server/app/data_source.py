@@ -416,10 +416,11 @@ class CCDataSource(DataSource):
                 
     def get_stats(self, rse, run):
         stats = self.get_data(rse, run, "stats")
-        ndark = nmissing = confirmed_dark = None
+        ndark = nmissing = nlost = confirmed_dark = None
         if "cmp3" in stats:
             ndark = stats["cmp3"].get("dark")
             nmissing = stats["cmp3"].get("missing")
+            nlost = stats["cmp3"].get("lost")
         confirmed_dark = stats.get(self.DarkSection,{}).get("confirmed_dark_files")
         for k in ["dbdump_before", "scanner", "dbdump_after", "cmp3", self.DarkSection, self.MissingSection, "cmp2dark"]:
             d = stats.get(k)
@@ -427,8 +428,8 @@ class CCDataSource(DataSource):
                 d["elapsed"] = None
                 if d.get("end_time") is not None and d.get("start_time") is not None:
                     d["elapsed"] = d["end_time"] - d["start_time"]
-        return stats, ndark, nmissing, confirmed_dark
-        
+        return stats, ndark, nmissing, confirmed_dark, nlost
+
     def get_dark_or_missing(self, rse, run, typ, limit):
         path = f"{self.Path}/{rse}_{run}_{typ}.list"
         path_gz = path + ".gz"
@@ -481,7 +482,7 @@ class CCDataSource(DataSource):
         prev_i = this_i - 1
         if prev_i >= 0:
             prev_run = runs[prev_i]
-            prev_stats, _, _, _ = self.get_stats(rse, prev_run)
+            prev_stats, _, _, _, _ = self.get_stats(rse, prev_run)
             if prev_stats is not None and prev_stats.get("cmp3", {}).get("status") == "done":
                 prev_dark = self.get_dark(rse, prev_run)
                 prev_missing = self.get_missing(rse, prev_run)

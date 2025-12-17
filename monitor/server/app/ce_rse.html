@@ -131,6 +131,7 @@
                 [	    
                     new Date({{info["start_time_milliseconds"]}}), 
                     {{info["nmissing"] if info["nmissing"] is not none else "null"}},
+                    {{info["perm_lost"] if info["perm_lost"] is not none else "null"}},
                     {{info["acted_missing"] if info["acted_missing"] is not none else "null"}}
                 ]
 			{% endfor %}

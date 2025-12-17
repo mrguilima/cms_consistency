@@ -162,25 +162,24 @@ class App(WPApp):
         
         
 Usage = """
-python server.py [-r <url prefix to remove>] <port> <cc data path> <wm data path>
+python server.py [-r <url prefix to remove>] -p <port> <cc data path> <wm data path>
 """
 
 if __name__ == "__main__":
     import sys, getopt
 
-    opts, args = getopt.getopt(sys.argv[1:], "r:ld", ["um-ignore="])
+    opts, args = getopt.getopt(sys.argv[1:], "r:ldp:", ["um-ignore="])
     opts = dict(opts)
 
     if not args:
         print (Usage)
         sys.exit(2)
 
-    port = int(args[0])
-    cc_path, wm_path = args[1:]
-
+    port   = 8400 if "-p" not in opts else int(opts.get("-p"))
     prefix = opts.get("-r")
     logging="-l" in opts
-    debug=sys.stdout if "-d" in opts else None
+    debug  = sys.stdout if "-d" in opts else None
+    cc_path, wm_path = args[1:]
 
     um_ignore_list = opts.get("--um-ignore", [])
     if um_ignore_list:

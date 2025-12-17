@@ -168,18 +168,16 @@ python server.py [-r <url prefix to remove>] <port> <cc data path> <wm data path
 if __name__ == "__main__":
     import sys, getopt
 
-    print("server.py: sys.argv:", sys.argv)
-
     opts, args = getopt.getopt(sys.argv[1:], "r:ld", ["um-ignore="])
     opts = dict(opts)
 
     if not args:
         print (Usage)
-        sys.exit(2) 
-    print(f"  args[0-2]: {args[0]}, {args[1]}, {args[2]}") 
-    port = int(args[1])
-    cc_path, wm_path = args[2:]
-    
+        sys.exit(2)
+
+    port = int(args[0])
+    cc_path, wm_path = args[1:]
+
     prefix = opts.get("-r")
     logging="-l" in opts
     debug=sys.stdout if "-d" in opts else None

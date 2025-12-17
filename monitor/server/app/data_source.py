@@ -439,7 +439,7 @@ class CCDataSource(DataSource):
             try:    f = open(path, "r")
             except:
                 return None
-                
+
         def limited_line_reader(f, n):
             while n is None or n > 0:
                 l = f.readline()
@@ -449,11 +449,11 @@ class CCDataSource(DataSource):
                 if l:
                     yield l
                     if n is not None:
-                        n -= 1        
+                        n -= 1
             f.close()
-            
+
         return limited_line_reader(f, limit)
-        
+
     def file_lists_diffs_counts(self, rse, run):
         # compare dark or missing list from the run to the previous run
         # returns (prev_run, missing old count, dark_old count)
@@ -508,7 +508,7 @@ class CCDataSource(DataSource):
 
     def get_missing(self, rse, run, limit=None):
         return self.get_dark_or_missing(rse, run, "M", limit)
-        
+
     def empty_dirs_count(self, rse, run):
         stats = self.get_stats(rse, run)[0]
         count = None

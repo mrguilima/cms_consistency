@@ -193,9 +193,3 @@ if __name__ == "__main__":
     sys.stdout.flush()
     home = os.path.dirname(__file__) or "."
     App(Handler, home, cc_path, prefix, wm_path, um_ignore_list).run_server(port, logging=logging, debug=debug)
-
-        
-        
-        
-        
-        

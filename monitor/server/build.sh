@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 export MONITOR_VERSION=rucio-con-mon:1.0.2
 export HARBOR=registry.cern.ch/cmsrucio
 

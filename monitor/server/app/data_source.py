@@ -475,6 +475,7 @@ class CCDataSource(DataSource):
 
         this_dark = self.get_dark(rse, run)
         this_missing = self.get_missing(rse, run)
+        this_lost = self.get_lost(rse, run)
         if this_dark is None or this_missing is None:
             return (None, None, None)         # one of the lists missing
 
@@ -508,6 +509,9 @@ class CCDataSource(DataSource):
 
     def get_missing(self, rse, run, limit=None):
         return self.get_dark_or_missing(rse, run, "M", limit)
+
+    def get_lost(self, rse, run, limit=None):
+        return self.get_dark_or_missing(rse, run, "permLost", limit)
 
     def empty_dirs_count(self, rse, run):
         stats = self.get_stats(rse, run)[0]

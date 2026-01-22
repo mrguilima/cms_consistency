@@ -201,7 +201,7 @@ class CEHandler(WPHandler):
             out.append(space*len(head)+"/"+tail)
             prev = parts
         return out
-        
+
     def display_file_list(self, lst):
         Indent = "    "
         last_items = []
@@ -261,7 +261,14 @@ class CEHandler(WPHandler):
             "Content-Type":"text/plain",
             "Content-Disposition":"attachment"
         }
-    
+
+    def lost(self, request, relpath, rse=None, run=None, **args):
+        lst = self.CCDataSource.get_lost(rse, run)
+        return (path+"\n" for path in lst), {
+            "Content-Type":"text/plain",
+            "Content-Disposition":"attachment"
+        }
+
     LIMIT = 1000
     
     def show_run(self, request, relpath, rse=None, run=None, **args):
@@ -347,6 +354,7 @@ class CEHandler(WPHandler):
             dark = self.display_file_list(dark),
             dark_confirmed = self.display_file_list(dark_confirmed),
             missing = self.display_file_list(missing),
+            nlost = self.display_file_list(lost),
             stats_parts=stats_parts,
             time_now = time.time()
         )

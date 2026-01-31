@@ -511,6 +511,7 @@ class CCDataSource(DataSource):
         return self.get_dark_or_missing(rse, run, "M", limit)
 
     def get_lost(self, rse, run, limit=None):
+        print(f"get_lost(rse={rse}, run={run}) called")
         return self.get_dark_or_missing(rse, run, "permLost", limit)
 
     def empty_dirs_count(self, rse, run):
@@ -667,7 +668,8 @@ class CCDataSource(DataSource):
         if "cmp3" in stats and stats["cmp3"]["status"] == "done":
             summary["missing_stats"]["detected"] = summary["missing_stats"]["confirmed"] = stats["cmp3"]["missing"]
             summary["dark_stats"]["detected"] = stats["cmp3"]["dark"]
-            
+            summary["lost_stats"]["detected"] = stats["cmp3"]["lost"]
+
             if "cmp2dark" in stats:
                 summary["dark_stats"]["confirmed"] = stats["cmp2dark"].get("join_list_files")
 

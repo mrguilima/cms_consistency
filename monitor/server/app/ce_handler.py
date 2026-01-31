@@ -310,10 +310,11 @@ class CEHandler(WPHandler):
         dark_truncated = (ndark or 0)  > self.LIMIT
         dark_confirmed_truncated = (confirmed_dark or 0)  > self.LIMIT
         missing_truncated = (nmissing or 0) > self.LIMIT
-        
+
         dark = self.CCDataSource.get_dark(rse, run, self.LIMIT)
         dark_confirmed = self.CCDataSource.get_dark_action(rse, run, self.LIMIT)
         missing = self.CCDataSource.get_missing(rse, run, self.LIMIT)
+        lost = self.CCDataSource.get_lost(rse, run, self.LIMIT)
         
         #
         # retrofit failed directories
@@ -350,11 +351,12 @@ class CEHandler(WPHandler):
             cmp3=stats.get("cmp3"),
             stats=stats, summary=summary,
             ndark = ndark, nmissing=nmissing, ndark_confirmed=confirmed_dark,
+            nlost = nlost,
             old_ndark = old_ndark, old_nmissing = old_nmissing,
             dark = self.display_file_list(dark),
             dark_confirmed = self.display_file_list(dark_confirmed),
             missing = self.display_file_list(missing),
-            nlost = self.display_file_list(lost),
+            lost = self.display_file_list(lost),
             stats_parts=stats_parts,
             time_now = time.time()
         )

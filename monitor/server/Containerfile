@@ -10,6 +10,10 @@ RUN pip install --upgrade pip \
   && pip install --no-cache-dir pipx \
   && pipx install uv
 
+#.. install vim for quick edits directly on the image
+RUN apt-get update && apt-get install -y --no-install-recommends vim-tiny \
+  && rm -rf /var/lib/apt/lists/*
+
 # 2. Set the working directory for the application
 WORKDIR /app
 
@@ -45,6 +49,7 @@ ADD start.sh ./start.sh
 RUN mkdir -p /var/cache/consistency-dump /var/cache/consistency-temp /reports/unmerged
 ADD app ./app
 ADD reports /reports
+COPY --from=builder /usr/bin/vi /usr/bin/vi
 
 RUN chmod +x *.sh
 
@@ -52,12 +57,10 @@ RUN chmod +x *.sh
 ENV PATH="/app/.venv/bin:$PATH"
 
 # 4. Define how the container starts
-#CMD ["python", "your_main_script.py"]
 EXPOSE 8400
-ENTRYPOINT ["/app/start.sh"]
-
+#ENTRYPOINT ["/app/start.sh"]
+CMD ["/app/start.sh"]
 
 # 5. Use /bin/bash --login to ensure the PATH is correctly initialized.
 #CMD [ "/bin/bash", "--login" ]
-CMD ["/bin/bash"]
-
+#CMD ["/bin/bash"]

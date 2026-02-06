@@ -179,7 +179,7 @@ if __name__ == "__main__":
     prefix = opts.get("-r")
     logging="-l" in opts
     debug  = sys.stdout if "-d" in opts else None
-    cc_path, wm_path = args[1:]
+    cc_path, wm_path = args[-2:]
 
     um_ignore_list = opts.get("--um-ignore", [])
     if um_ignore_list:

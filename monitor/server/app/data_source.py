@@ -668,7 +668,6 @@ class CCDataSource(DataSource):
         if "cmp3" in stats and stats["cmp3"]["status"] == "done":
             summary["missing_stats"]["detected"] = summary["missing_stats"]["confirmed"] = stats["cmp3"]["missing"]
             summary["dark_stats"]["detected"] = stats["cmp3"]["dark"]
-            summary["lost_stats"]["detected"] = stats["cmp3"]["lost"] or None
 
             if "cmp2dark" in stats:
                 summary["dark_stats"]["confirmed"] = stats["cmp2dark"].get("join_list_files")
@@ -693,7 +692,8 @@ class CCDataSource(DataSource):
                     missing_summary["aborted_reason"] = missing_stats.get("aborted_reason", "")
                 missing_summary["elapsed"] = missing_stats.get("elapsed")
                 missing_summary["error_counts"] = missing_stats.get("declaration_errors")
-                missing_summary["lost"] = missing_stats[.get()("lost") or None
+                print(f"from CCDataSource.run_summary() @L695: lost={missing_stats.get('lost')}")
+                missing_summary["lost"] = missing_stats.get("lost")
 
         if self.EmptyDirSection in stats:
             ed_summary = summary["empty_dirs_stats"]

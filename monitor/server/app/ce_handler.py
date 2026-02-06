@@ -55,7 +55,7 @@ class CEHandler(WPHandler):
         view = view or sort     # for backward compatibility
 
         all_stats = data_source.latest_stats_per_rse()
-        print(f"from CEHandler.index() L58: {stats}")
+        print(f"from CEHandler.index() L58: {all_stats.keys()}")
         summaries = {rse: data_source.run_summary(stats) for rse, stats in all_stats.items()}
         for rse, summary in summaries.items():
             summary["rse"] = rse

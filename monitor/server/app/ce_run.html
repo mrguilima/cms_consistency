@@ -291,6 +291,18 @@
 
           {% endif %}
 
+          {% if lost %}
+
+          <div id="lost_list" class="hidden">
+              <a id="lost_list_ref"></a>
+              <h4>Lost files {% if missing_truncated %} (truncated){% endif %}</h4>
+              {% for f in missing %}
+                  <span class="lfn {{f|path_type}}">{{f}}</span><br/>
+              {%- endfor %}
+          </div>
+
+          {% endif %}
+
           {% if dark %}
 
           <div id="dark_list" class="hidden">

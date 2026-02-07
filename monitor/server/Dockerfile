@@ -10,8 +10,8 @@ RUN pip install --upgrade pip \
   && pipx install uv
 
 #.. install vim for quick edits directly on the image
-RUN apt-get update && apt-get install -y --no-install-recommends vim-tiny \
-  && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && apt-get install -y --no-install-recommends vim-tiny \
+#  && rm -rf /var/lib/apt/lists/*
 
 # 2. Set the working directory for the application
 WORKDIR /app
@@ -41,13 +41,13 @@ WORKDIR /app
 # 2. Copy the *clean virtual environment* and application files from the builder stage
 #    This drastically reduces the size of the final image by excluding build tools and cache
 COPY --from=builder /app /app
-#COPY --from=builder /app/.venv /app/.venv
 
 ADD start.sh ./start.sh
 RUN mkdir -p /var/cache/consistency-dump /var/cache/consistency-temp /reports/unmerged
 ADD app ./app
 ADD reports /reports
-COPY --from=builder /usr/bin/vi /usr/bin/vi
+
+#COPY --from=builder /usr/bin/vi /usr/bin/vi
 
 RUN chmod +x *.sh
 
@@ -56,8 +56,8 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 # 4. Define how the container starts
 EXPOSE 8400
-#ENTRYPOINT ["/app/start.sh"]
-CMD ["/app/start.sh"]
+ENTRYPOINT ["/app/start.sh"]
+#CMD ["/app/start.sh"]
 
 # 5. Use /bin/bash --login to ensure the PATH is correctly initialized.
 #CMD [ "/bin/bash", "--login" ]

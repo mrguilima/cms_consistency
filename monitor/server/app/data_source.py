@@ -95,7 +95,7 @@ class DataSource(object):
             if os.stat(path).st_size > 0:
                 r, timestamp, typ, ext = self.parse_filename(fn)
                 if r == rse:
-                    # if the RSE was X, then rses like X_Y will appear in this list too, 
+                    # if the RSE was X, then rses like X_Y will appear in this list too,
                     # so double check that we get the right RSE
                     runs.append(timestamp)
         return sorted(runs)[-nlast:]
@@ -160,7 +160,7 @@ class DataSource(object):
         out = []
         files = sorted(glob.glob(f"{self.Path}/{rse}_*_stats.json"))
         for path in files:
-            r, run = self.parse_stats_path(path) 
+            r, run = self.parse_stats_path(path)
             if r == rse:
                 data = self.read_stats(rse, run, path=path)
                 if data:

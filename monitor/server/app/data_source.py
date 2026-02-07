@@ -511,7 +511,6 @@ class CCDataSource(DataSource):
         return self.get_dark_or_missing(rse, run, "M", limit)
 
     def get_lost(self, rse, run, limit=None):
-        print(f"get_lost(rse={rse}, run={run}) called")
         return self.get_dark_or_missing(rse, run, "permLost", limit)
 
     def empty_dirs_count(self, rse, run):
@@ -692,7 +691,6 @@ class CCDataSource(DataSource):
                     missing_summary["aborted_reason"] = missing_stats.get("aborted_reason", "")
                 missing_summary["elapsed"] = missing_stats.get("elapsed")
                 missing_summary["error_counts"] = missing_stats.get("declaration_errors")
-                print(f"from CCDataSource.run_summary() @L695: lost={missing_stats.get('lost')}")
                 missing_summary["lost"] = missing_stats.get("lost")
 
         if self.EmptyDirSection in stats:

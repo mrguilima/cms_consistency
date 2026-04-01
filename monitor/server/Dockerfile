@@ -1,5 +1,5 @@
 # === STAGE 1: BUILDER (For installing uv and resolving/installing dependencies) ===
-FROM python:3.12-slim as builder
+FROM python:3.14-slim as builder
 
 # 1. Install uv as a standalone binary (prevents 'root' user pip warnings)
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
@@ -10,7 +10,7 @@ WORKDIR /app
 # 3. Use uv to create the production environment
 RUN uv venv .venv && \
     . .venv/bin/activate && \
-    uv pip install --python .venv/bin/python webpie pythreader jinja2
+    uv pip install --no-cache-dir --python .venv/bin/python webpie pythreader jinja2 legacy-cgi
 
 # 4. Prepare app environment as needed
 ADD start.sh /app/start.sh
@@ -18,7 +18,7 @@ RUN mkdir app samples
 
 
 # === STAGE 2: RUNNER (The minimal, clean production image) ===
-FROM python:3.12-slim as runner
+FROM python:3.14-slim as runner
 
 # 1. Setup environment
 WORKDIR /app
@@ -32,7 +32,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 #    rm -rf /var/lib/apt/lists/*
 #
 ##.. test data from /var/cache/consistency-dump - usually not needed
-#ADD app/reports /reports
+#ADD reports /reports
 ####( END of section to be removed for production image )###### 
 
 # 3. Copy the *clean virtual environment* and application files from the builder stage

@@ -1,0 +1,8 @@
+
+./testscan-site_cmp3.sh \
+  /consistency/config.yaml \
+  /opt/rucio/etc/rucio.cfg \
+  T2_BR_UERJ \
+  /var/cache/test \
+  /var/cache/test \
+  /tmp/x509up

@@ -1,0 +1,13 @@
+
+RSE=T2_BR_UERJ
+last=2026_03_11_20_29
+
+#.. test: rce_scan
+rce_scan \
+  -c /var/cache/test/${RSE}_${last}_config.yaml \
+  -s /var/cache/test/${RSE}_${last}_stats.json \
+  -o /var/cache/test/${RSE}_R \
+  -r /var/cache/test/${RSE}_${last}_root_file_counts.json \
+  -z -E 1 \
+  -e /var/cache/test/${RSE}_${last}_ED.list.gz \
+  ${RSE}

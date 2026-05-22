@@ -1,0 +1,8 @@
+   export RUCIO_ACCOUNT=transfer_ops
+
+   rucio rse show T2_US_Purdue | grep CE
+
+   rucio-admin rse set-attribute --rse T2_UK_SGrid_Bristol --key=CE_config.ce_disabled --value=False
+
+   rucio-admin rse delete-attribute --rse $i --key CE_config.ce_disabled --value True
+

@@ -1,0 +1,28 @@
+
+export PYTHON=python3
+python=${PYTHON:-python}
+export PYTHONPATH=/consistency/cms_consistency/site_cmp3:/consistency/cms_consistency/site_cmp3/cmp3
+echo "python:                    $python"
+
+RSE=T2_PL_Cyfronet
+#RSE=T2_US_Purdue
+now=`date -u +%Y_%m_%d_%H_%M`
+
+cp `ls -1 /var/cache/consistency-dump/${RSE}*config.yaml | tail -1` \
+  /var/cache/test/${RSE}_${now}_config.yaml
+
+cp `ls -1 /var/cache/consistency-dump/${RSE}*root_file_counts.json | tail -1` \
+  /var/cache/test/${RSE}_${now}_root_file_counts.json
+
+#echo \
+time python3 ./xrootd_scanner.py -g \
+  -c /var/cache/test/${RSE}_${now}_config.yaml \
+  -s /var/cache/test/${RSE}_${now}_stats.json \
+  -o /var/cache/test/${RSE}_${now}_R \
+  -r /var/cache/test/${RSE}_${now}_root_file_counts.json \
+  -E 5 \
+  -M 8 \
+  -e /var/cache/test/${RSE}_${now}_ED.list.gz \
+  ${RSE}
+status=$?
+echo status=${status}

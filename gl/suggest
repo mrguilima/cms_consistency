@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Usage: ./suggest T2_BE_IIHE T2_CN_Beijing T2_BR_UERJ
+#..
+for i in $@ ;
+do echo nohup nice -n -1 /consistency/site.sh $i \> /var/cache/test/$i-\`date \+\%m\%d-\%H\%M\`.out 2\>\&1 \&
+done
